@@ -42,6 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final MaterialColor _primarySwatchColor = Colors.orange;
   final Color _titleAppBarColor = Colors.white;
 
+  Widget buttonBuilder(String text, Function() fun) {
+    return Expanded(
+      child: ElevatedButton(
+        child: Text(text),
+        onPressed: fun,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -104,9 +113,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.amber)),
-                      ),
+                          child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          buttonBuilder('7', () => null),
+                          buttonBuilder('8', () => null),
+                          buttonBuilder('9', () => null),
+                          buttonBuilder('x', () => null),
+                        ],
+                      )),
                     ),
                     Expanded(
                       child: Container(
