@@ -42,11 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
   final MaterialColor _primarySwatchColor = Colors.orange;
   final Color _titleAppBarColor = Colors.white;
 
-  Widget buttonBuilder(String text, Function() fun) {
+  Widget buttonBuilder(String text, Function() onPressed, {int flex = 1}) {
     return Expanded(
+      flex: flex,
       child: ElevatedButton(
         child: Text(text),
-        onPressed: fun,
+        onPressed: onPressed,
       ),
     );
   }
@@ -88,7 +89,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              buttonBuilder('C', () => null),
+                              buttonBuilder(
+                                'C',
+                                () => null,
+                                flex: 2,
+                              ),
                               Expanded(
                                 child: ElevatedButton(
                                   child: Icon(Icons.backspace),
@@ -144,7 +149,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            buttonBuilder('0', () => null),
+                            buttonBuilder(
+                              '0',
+                              () => null,
+                              flex: 3,
+                            ),
                             buttonBuilder('=', () => null),
                           ],
                         ),
