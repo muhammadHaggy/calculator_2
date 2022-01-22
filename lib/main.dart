@@ -88,24 +88,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  child: Text('C'),
-                                  onPressed: () {},
-                                ),
-                              ),
+                              buttonBuilder('C', () => null),
                               Expanded(
                                 child: ElevatedButton(
                                   child: Icon(Icons.backspace),
                                   onPressed: () {},
                                 ),
                               ),
-                              Expanded(
-                                child: ElevatedButton(
-                                  child: Text('/'),
-                                  onPressed: () {},
-                                ),
-                              )
+                              buttonBuilder('/', () => null),
                             ],
                           ),
                         ),
@@ -125,20 +115,39 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.amber)),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            buttonBuilder('4', () => null),
+                            buttonBuilder('5', () => null),
+                            buttonBuilder('6', () => null),
+                            buttonBuilder('-', () => null),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.amber)),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            buttonBuilder('1', () => null),
+                            buttonBuilder('2', () => null),
+                            buttonBuilder('3', () => null),
+                            buttonBuilder('+', () => null),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.amber)),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            buttonBuilder('0', () => null),
+                            buttonBuilder('=', () => null),
+                          ],
+                        ),
                       ),
                     ),
                   ],
