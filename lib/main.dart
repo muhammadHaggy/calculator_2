@@ -75,8 +75,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.amber)),
+                        child: Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text('C'),
+                                  onPressed: () {},
+                                ),
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Icon(Icons.backspace),
+                                  onPressed: () {},
+                                ),
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text('/'),
+                                  onPressed: () {},
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(
