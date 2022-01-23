@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void appendOperator(String operator) => setState(() {
         if (sbValue.toString() != '0') {
-          sbValue.write(operator);
+          sbValue.write(' ' + operator + ' ');
         }
       });
 
@@ -110,16 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 alignment: Alignment.bottomRight,
                 key: const Key("expanded_container_bagian_atas"),
-                // child: Stack(
-                //   alignment: Alignment.bottomRight,
-                //   children: [
-                //     AutoSizeText(
-                //       sbValue.toString(),
-                //       style: Theme.of(context).textTheme.headline2,
-                //       maxLines: 1,
-                //     )
-                //   ],
-                // ),
                 child: AutoSizeText(
                   sbValue.toString(),
                   style: Theme.of(context).textTheme.headline2,
@@ -197,8 +187,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         buttonBuilder(
                           '0',
                           () => appendNumber('0'),
-                          flex: 3,
+                          flex: 2,
                         ),
+                        buttonBuilder('.', () => appendNumber('.')),
                         Expanded(
                           child: ElevatedButton(
                             child: Text(
