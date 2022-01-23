@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(
+          key: Key("homePage"), title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -42,18 +43,32 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final MaterialColor _primarySwatchColor = Colors.orange;
   final Color _titleAppBarColor = Colors.white;
+  final sbValue = StringBuffer();
+  late String operator;
+
+  @override
+  void initState() {
+    super.initState();
+    sbValue.write("0");
+    operator = '';
+  }
+
+  void appendNumber(String strInput) => setState(() {
+        if (sbValue.toString() == '0') {
+          sbValue.clear();
+        }
+        sbValue.write(strInput);
+      });
 
   Widget buttonBuilder(String text, Function() onPressed, {int flex = 1}) {
     return Expanded(
       flex: flex,
-      child: Container(
-        child: TextButton(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          onPressed: onPressed,
+      child: TextButton(
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.headline4,
         ),
+        onPressed: onPressed,
       ),
     );
   }
@@ -70,121 +85,112 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         body: Column(
+          key: UniqueKey(),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              key: Key("expanded_bagian_atas"),
               flex: 1,
               child: Container(
+                alignment: Alignment.bottomRight,
                 key: Key("expanded_container_bagian_atas"),
-                width: double.infinity,
-                height: double.infinity,
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    AutoSizeText(
-                      '0',
-                      style: Theme.of(context).textTheme.headline2,
-                      maxLines: 1,
-                    )
-                  ],
+                // child: Stack(
+                //   alignment: Alignment.bottomRight,
+                //   children: [
+                //     AutoSizeText(
+                //       sbValue.toString(),
+                //       style: Theme.of(context).textTheme.headline2,
+                //       maxLines: 1,
+                //     )
+                //   ],
+                // ),
+                child: AutoSizeText(
+                  sbValue.toString(),
+                  style: Theme.of(context).textTheme.headline2,
+                  maxLines: 1,
                 ),
               ),
             ),
             Expanded(
-              key: Key("expanded_bagian_bawah"),
               flex: 2,
-              child: Container(
-                key: Key("expanded_container_bagian_bawah"),
-                width: double.infinity,
-                height: double.infinity,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        child: Expanded(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              buttonBuilder(
-                                'C',
-                                () => null,
-                                flex: 2,
-                              ),
-                              Expanded(
-                                child: TextButton(
-                                  child: Icon(Icons.backspace),
-                                  onPressed: () {},
-                                ),
-                              ),
-                              buttonBuilder('/', () => null),
-                            ],
+              child: Column(
+                key: UniqueKey(),
+                children: [
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        buttonBuilder(
+                          'C',
+                          () => null,
+                          flex: 2,
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            child: Icon(Icons.backspace),
+                            onPressed: () {},
                           ),
                         ),
-                      ),
+                        buttonBuilder('/', () => null),
+                      ],
                     ),
-                    Expanded(
-                      child: Container(
-                          child: Row(
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        buttonBuilder('7', () => appendNumber('7')),
+                        buttonBuilder('8', () => appendNumber('8')),
+                        buttonBuilder('9', () => appendNumber('9')),
+                        buttonBuilder('x', () => null),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          buttonBuilder('7', () => null),
-                          buttonBuilder('8', () => null),
-                          buttonBuilder('9', () => null),
-                          buttonBuilder('x', () => null),
+                          buttonBuilder('4', () => appendNumber('4')),
+                          buttonBuilder('5', () => appendNumber('5')),
+                          buttonBuilder('6', () => appendNumber('6')),
+                          buttonBuilder('-', () => null),
                         ],
-                      )),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            buttonBuilder('4', () => null),
-                            buttonBuilder('5', () => null),
-                            buttonBuilder('6', () => null),
-                            buttonBuilder('-', () => null),
-                          ],
-                        ),
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            buttonBuilder('1', () => null),
-                            buttonBuilder('2', () => null),
-                            buttonBuilder('3', () => null),
-                            buttonBuilder('+', () => null),
-                          ],
-                        ),
-                      ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        buttonBuilder('1', () => appendNumber('1')),
+                        buttonBuilder('2', () => appendNumber('2')),
+                        buttonBuilder('3', () => appendNumber('3')),
+                        buttonBuilder('+', () => null),
+                      ],
                     ),
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            buttonBuilder(
-                              '0',
-                              () => null,
-                              flex: 3,
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        buttonBuilder(
+                          '0',
+                          () => appendNumber('0'),
+                          flex: 3,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            child: Text(
+                              '=',
+                              style: Theme.of(context).textTheme.headline4,
                             ),
-                            Expanded(
-                              child: ElevatedButton(
-                                child: Text(
-                                  '=',
-                                  style: Theme.of(context).textTheme.headline4,
-                                ),
-                                onPressed: () {},
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                            onPressed: () {},
+                          ),
+                        )
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )
           ],
