@@ -60,6 +60,23 @@ class _MyHomePageState extends State<MyHomePage> {
         sbValue.write(strInput);
       });
 
+  void appendOperator(String operator) => setState(() {
+        if (sbValue.toString() != '0') {
+          sbValue.write(operator);
+        }
+      });
+
+  void backspace() => setState(() {
+        String temp = sbValue.toString();
+        sbValue.clear();
+        if (temp != null && temp.length > 1) {
+          sbValue.write(temp.substring(0, temp.length - 1));
+        }
+        if (sbValue.toString() == '') {
+          sbValue.write('0');
+        }
+      });
+
   Widget buttonBuilder(String text, Function() onPressed, {int flex = 1}) {
     return Expanded(
       flex: flex,
@@ -92,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 1,
               child: Container(
                 alignment: Alignment.bottomRight,
-                key: Key("expanded_container_bagian_atas"),
+                key: const Key("expanded_container_bagian_atas"),
                 // child: Stack(
                 //   alignment: Alignment.bottomRight,
                 //   children: [
@@ -121,16 +138,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         buttonBuilder(
                           'C',
-                          () => null,
+                          () {
+                            sbValue.clear();
+                            appendNumber('0');
+                          },
                           flex: 2,
                         ),
                         Expanded(
                           child: TextButton(
-                            child: Icon(Icons.backspace),
-                            onPressed: () {},
+                            child: const Icon(Icons.backspace),
+                            onPressed: () => backspace(),
                           ),
                         ),
-                        buttonBuilder('/', () => null),
+                        buttonBuilder('/', () => appendOperator('/')),
                       ],
                     ),
                   ),
@@ -141,21 +161,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         buttonBuilder('7', () => appendNumber('7')),
                         buttonBuilder('8', () => appendNumber('8')),
                         buttonBuilder('9', () => appendNumber('9')),
-                        buttonBuilder('x', () => null),
+                        buttonBuilder('x', () => appendOperator('x')),
                       ],
                     ),
                   ),
                   Expanded(
-                    child: Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          buttonBuilder('4', () => appendNumber('4')),
-                          buttonBuilder('5', () => appendNumber('5')),
-                          buttonBuilder('6', () => appendNumber('6')),
-                          buttonBuilder('-', () => null),
-                        ],
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        buttonBuilder('4', () => appendNumber('4')),
+                        buttonBuilder('5', () => appendNumber('5')),
+                        buttonBuilder('6', () => appendNumber('6')),
+                        buttonBuilder('-', () => appendOperator('-')),
+                      ],
                     ),
                   ),
                   Expanded(
@@ -165,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         buttonBuilder('1', () => appendNumber('1')),
                         buttonBuilder('2', () => appendNumber('2')),
                         buttonBuilder('3', () => appendNumber('3')),
-                        buttonBuilder('+', () => null),
+                        buttonBuilder('+', () => appendOperator('+')),
                       ],
                     ),
                   ),
