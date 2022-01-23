@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -45,9 +46,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget buttonBuilder(String text, Function() onPressed, {int flex = 1}) {
     return Expanded(
       flex: flex,
-      child: ElevatedButton(
-        child: Text(text),
-        onPressed: onPressed,
+      child: Container(
+        child: TextButton(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          onPressed: onPressed,
+        ),
       ),
     );
   }
@@ -72,6 +78,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 key: Key("expanded_container_bagian_atas"),
                 width: double.infinity,
                 height: double.infinity,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    AutoSizeText(
+                      '0',
+                      style: Theme.of(context).textTheme.headline2,
+                      maxLines: 1,
+                    )
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -95,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 flex: 2,
                               ),
                               Expanded(
-                                child: ElevatedButton(
+                                child: TextButton(
                                   child: Icon(Icons.backspace),
                                   onPressed: () {},
                                 ),
@@ -154,7 +170,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               () => null,
                               flex: 3,
                             ),
-                            buttonBuilder('=', () => null),
+                            Expanded(
+                              child: ElevatedButton(
+                                child: Text(
+                                  '=',
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                                onPressed: () {},
+                              ),
+                            )
                           ],
                         ),
                       ),
